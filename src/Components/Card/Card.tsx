@@ -1,28 +1,26 @@
 import Image from "next/image";
-import styles from "./card.module.css"
-import Link from "next/link"
+import styles from "./card.module.css";
+import Link from "next/link";
 
-const Card = () => {
-    return (
-        <div className={styles.container}>
-            <div className={styles.imageContainer}>
-                <Image src="/p1.jpeg" alt="" fill className={styles.image}/>
-            </div>
-            <div className={styles.textContainer}>
-                <span className={styles.date}>01.01.2024</span>
-            </div>
-            <Link href="/">
-                <h1>Lorem Ipsum dolor sit amet consectetur</h1>
-            </Link>
-            <p className={styles.desc}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint eaque
-                dignissimos ullam commodi eos adipisci facere! Quis id explicabo ipsam
-                totam libero ipsa aliquam obcaecati, in facere molestiae architecto
-                asperiores?..
-            </p>
-            <Link href="/">Read More</Link>
+const Card = ({ item, key }) => {
+  return (
+    <div className={styles.container} key={key}>
+      {item.img && (
+        <div className={styles.imageContainer}>
+          <Image src={item.img} alt="" fill className={styles.image} />
         </div>
-    )
-}
+      )}
+
+      <div className={styles.textContainer}>
+        <span className={styles.date}>01.01.2024</span>
+      </div>
+      <Link href={`/${item.slug}`}>
+        <h1>{item.title}</h1>
+      </Link>
+      <p className={styles.desc}>{item.desc.substring(0, 60)}</p>
+      <Link href={`/${item.slug}`}>Read More</Link>
+    </div>
+  );
+};
 
 export default Card;
