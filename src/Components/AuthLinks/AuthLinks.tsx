@@ -1,24 +1,32 @@
-import React from 'react'
-import styles from "./authLinks.module.css"
-import Link from 'next/link';
+"use client";
+import Link from "next/link";
+import styles from "./authLinks.module.css";
+import { useState } from "react";
+import { signOut, useSession } from "next-auth/react";
 
 const AuthLinks = () => {
-  //temp
-  const status = "notauthenticated"
+  const [open, setOpen] = useState(false);
 
-  return(
+  const { status } = useSession();
+
+  return (
     <>
-    {status === "notauthenticated" ? (
-      <Link href="/login">Login</Link>
-    ) : (
-      <>
-        <Link href="/write">Write</Link>
-        <span>Logout</span>
-      </>
-    )}
+      {status === "unauthenticated" ? (
+        <Link href="/login" className={styles.link}>
+          Login
+        </Link>
+      ) : (
+        <>
+          <Link href="/write" className={styles.link}>
+            Write
+          </Link>
+          <span className={styles.link} onClick={() => signOut}>
+            Logout
+          </span>
+        </>
+      )} 
     </>
   );
 };
 
-
-export default AuthLinks
+export default AuthLinks;
