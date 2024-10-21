@@ -1,3 +1,16 @@
+
+## Create a .env at the root directory
+
+Copy paste your Google client ID key and the Secret ID key in the .env file:
+
+GOOGLE_ID = 
+GOOGLE_SECRET = 
+
+NEXTAUTH_URL = http://localhost:3000
+NEXTAUTH_SECRET = make something up
+
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
