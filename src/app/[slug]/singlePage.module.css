@@ -1,6 +1,3 @@
-.container {
-}
-
 .infoContainer {
   display: flex;
   align-items: center;
@@ -64,6 +61,19 @@
   font-size: 20px;
   font-weight: 300;
 }
+
+.delete {
+  position: relative;
+  top: 0px;
+  right: 0px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #89171a;
+  color: white;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
 
 @media screen and (max-width: 1536px) {
   .title {

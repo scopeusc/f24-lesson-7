@@ -2,7 +2,7 @@ import Image from "next/image";
 import styles from "./card.module.css";
 import Link from "next/link";
 
-const Card = ({ item, key }) => {
+const Card = ({ key, item }) => {
   return (
     <div className={styles.container} key={key}>
       {item.img && (
@@ -10,15 +10,21 @@ const Card = ({ item, key }) => {
           <Image src={item.img} alt="" fill className={styles.image} />
         </div>
       )}
-
       <div className={styles.textContainer}>
-        <span className={styles.date}>01.01.2024</span>
+        <div className={styles.detail}></div>
+        <Link href={`/${item.slug}`}>
+          <h1>{item.title}</h1>
+        </Link>
+        
+        <div
+          className={styles.desc}
+          // dangerouslySetInnerHTML={{ __html: item?.desc.substring(0, 60) }}
+          dangerouslySetInnerHTML={{ __html: item?.desc ? item.desc.substring(0, 60) : "Description not available." }}
+        />
+        <Link href={`/${item.slug}`} className={styles.link}>
+          Read More
+        </Link>
       </div>
-      <Link href={`/${item.slug}`}>
-        <h1>{item.title}</h1>
-      </Link>
-      <p className={styles.desc}>{item.desc.substring(0, 60)}</p>
-      <Link href={`/${item.slug}`}>Read More</Link>
     </div>
   );
 };

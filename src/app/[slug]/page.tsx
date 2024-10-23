@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./singlePage.module.css";
 import Image from "next/image";
 import Comments from "@/Components/Comments/Comments";
@@ -47,9 +46,12 @@ const SinglePage = async ({ params }) => {
       </div>
       <div className={styles.content}>
         <div className={styles.post}>
-          <div className={styles.description}>{data.desc}</div>
+          <div 
+            className={styles.description}
+            dangerouslySetInnerHTML={{ __html: data?.desc }}
+          />
           <div className={styles.comment}>
-            <Comments />
+            <Comments postSlug={slug}/>
           </div>
         </div>
       </div>

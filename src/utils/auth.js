@@ -1,4 +1,6 @@
 import GoogleProvider from "next-auth/providers/google";
+import { getServerSession } from "next-auth";
+
 
 export const authOptions = {
     providers: [
@@ -10,5 +12,6 @@ export const authOptions = {
     ],
   };
 
-  
+export const getAuthSession = () => getServerSession(authOptions);
+
 
