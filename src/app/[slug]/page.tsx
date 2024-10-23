@@ -1,6 +1,11 @@
 import styles from "./singlePage.module.css";
 import Image from "next/image";
 import Comments from "@/Components/Comments/Comments";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/utils/auth";
+import { Session } from "next-auth";
+import Email from "next-auth/providers/email";
+
 
 const getData = async (slug) => {
   const res = await fetch(`http://localhost:3000/api/posts/${slug}`, {
@@ -15,6 +20,15 @@ const getData = async (slug) => {
 const SinglePage = async ({ params }) => {
   const { slug } = params;
   const data = await getData(slug);
+  console.log(data)
+
+  const session: Session | null = await getServerSession(authOptions);
+  const userEmail = session?.user?.email; // Safely accessing email
+  console.log(userEmail)
+
+  const isPostAuthor = userEmail === data.userEmail;
+  console.log(data.userEmail)
+  console.log(isPostAuthor)
 
   return (
     <div className={styles.container}>
@@ -38,6 +52,11 @@ const SinglePage = async ({ params }) => {
             </div>
           </div>
         </div>
+        {isPostAuthor && (
+          <div>
+            <button className={styles.delete}>Delete</button>
+          </div>
+        )}
         {data.img && (
           <div className={styles.imageContainer}>
             <Image src={data.img} alt="" fill className={styles.image} />
