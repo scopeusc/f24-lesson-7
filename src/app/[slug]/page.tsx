@@ -1,11 +1,11 @@
+// pages/[slug]/page.tsx
 import styles from "./singlePage.module.css";
 import Image from "next/image";
 import Comments from "@/Components/Comments/Comments";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/utils/auth";
 import { Session } from "next-auth";
-import Email from "next-auth/providers/email";
-
+import DeleteButton from "@/Components/DeleteButton/DeleteButton";
 
 const getData = async (slug) => {
   const res = await fetch(`http://localhost:3000/api/posts/${slug}`, {
@@ -20,15 +20,15 @@ const getData = async (slug) => {
 const SinglePage = async ({ params }) => {
   const { slug } = params;
   const data = await getData(slug);
-  console.log(data)
+  console.log(data);
 
   const session: Session | null = await getServerSession(authOptions);
   const userEmail = session?.user?.email; // Safely accessing email
-  console.log(userEmail)
+  console.log(userEmail);
 
   const isPostAuthor = userEmail === data.userEmail;
-  console.log(data.userEmail)
-  console.log(isPostAuthor)
+  console.log(data.userEmail);
+  console.log(isPostAuthor);
 
   return (
     <div className={styles.container}>
@@ -53,9 +53,7 @@ const SinglePage = async ({ params }) => {
           </div>
         </div>
         {isPostAuthor && (
-          <div>
-            <button className={styles.delete}>Delete</button>
-          </div>
+          <DeleteButton slug={slug} />
         )}
         {data.img && (
           <div className={styles.imageContainer}>
@@ -65,12 +63,12 @@ const SinglePage = async ({ params }) => {
       </div>
       <div className={styles.content}>
         <div className={styles.post}>
-          <div 
+          <div
             className={styles.description}
             dangerouslySetInnerHTML={{ __html: data?.desc }}
           />
           <div className={styles.comment}>
-            <Comments postSlug={slug}/>
+            <Comments postSlug={slug} />
           </div>
         </div>
       </div>

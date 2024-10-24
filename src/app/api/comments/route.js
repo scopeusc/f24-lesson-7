@@ -9,7 +9,7 @@ export const GET = async (req) => {
 
   const postSlug = searchParams.get("postSlug");
 
-  console.log("IN getcomments");
+  // console.log("IN getcomments");
 
   try {
     const comments = await getComments(postSlug);
@@ -55,13 +55,13 @@ export const POST = async (req) => {
 };
 
 async function getComments(postSlug) {
-  console.log("startgetComments with postSlug: ", postSlug);
+  // console.log("startgetComments with postSlug: ", postSlug);
   const commentsCol = collection(db, "comments");
-  console.log("collection");
+  // console.log("collection");
   // const q = query(commentsCol, where("slug", "==", postSlug));
-  console.log("query");
+  // console.log("query");
   const commentsSnapshot = await getDocs(commentsCol);
-  console.log("getDocs");
+  // console.log("getDocs");
   const commentsList = commentsSnapshot.docs.reduce((acc, doc) => {
     const data = doc.data();
     if (data.postSlug === postSlug) {
@@ -69,6 +69,6 @@ async function getComments(postSlug) {
     }
     return acc;
   }, []);
-  console.log("Comments: ", commentsList);
+  // console.log("Comments: ", commentsList);
   return commentsList;
 }
